@@ -337,8 +337,9 @@ class SCVI(
         self.M = torch.from_numpy(np.concatenate(matrix_list,axis=0)).to(torch.device("cuda"))'''
         matrix = np.asarray(adata.X.todense())
         pca = PCA(n_components=n_pcs)
-        tmp = pca.fit_transform(matrix.copy())
-        self.M = torch.from_numpy(tmp).to(torch.device("cuda"))
+        pca.fit(matrix.copy())
+        #tmp = pca.fit_transform(matrix.copy())
+        self.M = pca
 
 
 
