@@ -452,7 +452,7 @@ class Encoder1(nn.Module):
         qz2_m = self.z2_mean_encoder(qz2)
         qz2_v = self.var_activation(self.z2_var_encoder(qz2)) + self.var_eps
         distqz2 = Normal(qz2_m, qz2_v.sqrt())
-        z2 = self.z_transformation(distqz2.rsample()).to(torch.device("cuda")
+        z2 = self.z_transformation(distqz2.rsample()).to(torch.device("cuda"))
         #z = torch.cat([z2,z1_h],axis=1)
 
         pz1_m, pz1_v = torch.chunk(h_hat, 2, dim=1)
