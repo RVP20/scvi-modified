@@ -334,6 +334,8 @@ class SCVI(
             pca_matrix[:,labels!=1] = 0
             matrix_list.append(pca_matrix)
         self.M = torch.from_numpy(np.concatenate(matrix_list,axis=0))
+        print(self.device)
+        print(M.device)
 
 
 
