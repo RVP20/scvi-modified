@@ -340,6 +340,7 @@ class SCVI(
         pca.fit(matrix.copy())
         #tmp = pca.fit_transform(matrix.copy())
         self.M = pca
+        print(self.M.transform(matrix.copy()))
 
 
 
