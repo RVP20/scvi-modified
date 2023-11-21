@@ -402,7 +402,7 @@ class Encoder1(nn.Module):
         # else:
         self.z_transformation = _identity
         self.var_activation = torch.exp if var_activation is None else var_activation
-        self.h = torch.cat([torch.zeros(n_z1), torch.ones(n_z1)]).view(1, -1)
+        self.h = torch.cat([torch.zeros(n_z1), torch.ones(n_z1)]).view(1, -1).to(torch.device("cuda))
         # if n_samples > 1:
         #     self.h = self.h*(torch.ones((n_samples,2*n_z1)))
 
