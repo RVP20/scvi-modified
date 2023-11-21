@@ -312,7 +312,7 @@ class SCVI(
         n_clusters: int,
         n_pcs: int,
     ):
-        sc.tl.pca(adata, n_comps=50, use_highly_variable=True)
+        '''sc.tl.pca(adata, n_comps=50, use_highly_variable=True)
         matrix_list = []
         num_genes = np.sum(self.highly_variable)
         matrix = np.asarray(adata.X.todense())[:,self.highly_variable]
@@ -334,7 +334,11 @@ class SCVI(
             print(pca_matrix.shape)
             pca_matrix[:,labels!=1] = 0
             matrix_list.append(pca_matrix)
-        self.M = torch.from_numpy(np.concatenate(matrix_list,axis=0)).to(torch.device("cuda"))
+        self.M = torch.from_numpy(np.concatenate(matrix_list,axis=0)).to(torch.device("cuda"))'''
+        matrix = np.asarray(adata.X.todense())
+        pca = PCA(n_components=n_pcs)
+        tmp = pca.fit_transform(matrix.copy())
+        self.M = torch.from_numpy(tmp).to(torch.device("cuda"))
 
 
 
