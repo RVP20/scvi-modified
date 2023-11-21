@@ -312,6 +312,7 @@ class SCVI(
         n_clusters: int,
         n_pcs: int,
     ):
+        sc.tl.pca(adata, n_comps=50, use_highly_variable=True)
         matrix_list = []
         num_genes = np.sum(self.highly_variable)
         matrix = np.asarray(adata.X.todense())[:,self.highly_variable]
