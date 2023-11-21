@@ -429,7 +429,7 @@ class Encoder1(nn.Module):
         # Parameters for latent distribution
         #x_hvg = x[:,self.highly_variable]
         #x_ll = torch.matmul(x_hvg,self.M.T)
-        x_ll = torch.from_numpy(self.M.transform(x.cpu())).to(torch.device("cuda")).double()
+        x_ll = torch.from_numpy(self.M.transform(x.cpu())).to(torch.device("cuda")).float()
         print(x_ll.dtype)
         print(x.dtype)
         qz1 = self.z1_encoder(x_ll, *cat_list)
