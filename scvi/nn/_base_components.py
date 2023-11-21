@@ -355,7 +355,7 @@ class Encoder1(nn.Module):
         self.distribution = distribution
         self.var_eps = var_eps
         self.z1_encoder = FCLayers(
-            n_in=M.shape[0],
+            n_in=M.n_components,
      #       n_in = np.sum(highly_variable),
             n_out=n_hidden,
             n_cat_list=n_cat_list,
