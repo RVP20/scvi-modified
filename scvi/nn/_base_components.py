@@ -402,7 +402,7 @@ class Encoder1(nn.Module):
         # else:
         self.z_transformation = _identity
         self.var_activation = torch.exp if var_activation is None else var_activation
-        self.h = torch.cat([torch.zeros(n_z1), torch.ones(n_z1)]).view(1, -1).to(torch.device("cuda:0"))
+        self.h = torch.cat([torch.zeros(n_z1), torch.ones(n_z1)]).view(1, -1).to(torch.device("cuda"))
         # if n_samples > 1:
         #     self.h = self.h*(torch.ones((n_samples,2*n_z1)))
 
@@ -429,7 +429,7 @@ class Encoder1(nn.Module):
         # Parameters for latent distribution
         #x_hvg = x[:,self.highly_variable]
         #x_ll = torch.matmul(x_hvg,self.M.T)
-        x_ll = torch.from_numpy(self.M.transform(x.cpu())).to(torch.device("cuda:0")).float()
+        x_ll = torch.from_numpy(self.M.transform(x.cpu())).to(torch.device("cuda")).float()
         qz1 = self.z1_encoder(x_ll, *cat_list)
         qz1_m = self.z1_mean_encoder(qz1)
         qz1_v = self.var_activation(self.z1_var_encoder(qz1)) + self.var_eps
@@ -442,7 +442,7 @@ class Encoder1(nn.Module):
         #print(z1.shape)
         #print(self.h)
         #print(self.h.shape)
-        h_hat = self.h*torch.ones((z1.shape[0],self.h.shape[1])).to(torch.device("cuda:0"))
+        h_hat = self.h*torch.ones((z1.shape[0],self.h.shape[1])).to(torch.device("cuda"))
 
 
         z1_h = torch.cat([z1,h_hat],axis=1)
@@ -453,7 +453,7 @@ class Encoder1(nn.Module):
         qz2_m = self.z2_mean_encoder(qz2)
         qz2_v = self.var_activation(self.z2_var_encoder(qz2)) + self.var_eps
         distqz2 = Normal(qz2_m, qz2_v.sqrt())
-        z2 = self.z_transformation(distqz2.rsample()).to(torch.device("cuda:0"))
+        z2 = self.z_transformation(distqz2.rsample()).to(torch.device("cuda"))
         #z = torch.cat([z2,z1_h],axis=1)
 
         pz1_m, pz1_v = torch.chunk(h_hat, 2, dim=1)
